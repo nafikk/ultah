@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ucapan Ulang Tahun</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #8005c8, #9736f8);
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      color: white;
+    }
+    .title {
+      font-size: 2.5rem;
+      margin-top: 50px;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      margin: 10px 0 30px;
+      text-shadow: 1px 1px 2px #000;
+    }
+    .balloons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 50px;
+      height: 70px;
+      background: radial-gradient(circle, #fff, #f06);
+      border-radius: 50%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    .memories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .memory-box {
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .memory-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .arrow-button {
+      position: fixed;
+      bottom: 20px;
+      right: 45%;
+      width: 10%;
+      height: 60px;
+      background-color: #f06;
+      border: none;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    .arrow-button:hover {
+      background-color: #fc6;
+      transform: scale(1.1);
+    }
+    .arrow-icon {
+      font-size: 15px;
+      color: white;
+    }
+
+    /* Responsif untuk layar kecil (smartphone) */
+    @media (max-width: 768px) {
+      .title {
+        font-size: 1.8rem;
+      }
+      .subtitle {
+        font-size: 1rem;
+      }
+      .memories {
+        gap: 10px;
+      }
+      .memory-box {
+        width: 120px;
+        height: 120px;
+      }
+      .arrow-button {
+        width: 10%;
+        height: 50px;
+        bottom: 10px;
+        right: 45%;
+      }
+      .arrow-icon {
+        font-size: 12px;
+      }
+    }
+
+    /* Responsif untuk perangkat dengan lebar sangat kecil (ponsel kecil) */
+    @media (max-width: 480px) {
+      .title {
+        font-size: 1.5rem;
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+      .memories {
+        gap: 5px;
+      }
+      .memory-box {
+        width: 100px;
+        height: 100px;
+      }
+      .arrow-button {
+        width: 20%;
+        height: 60px;
+        bottom: 5px;
+        right: 40%;
+      }
+      .arrow-icon {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Selamat Ulang Tahun!</h1>
+    <p class="subtitle" id="greeting"></p>
+    <div class="memories">
+      <div class="memory-box"><img src="image/adila dan aku cubuit tirtonadi.jpg" alt="Kenangan 1"></div>
+      <div class="memory-box"><img src="image/ramen.jpg" alt="Kenangan 2"></div>
+      <div class="memory-box"><img src="image/berdua di jogja cafe.jpg" alt="Kenangan 3"></div>
+      <div class="memory-box"><img src="image/foto kaca ss.jpg" alt="Kenangan 4"></div>
+    </div>
+  </div>
+  <div class="balloons"></div>
+
+  <!-- Tombol Panah -->
+  <button class="arrow-button" onclick="navigateToPage()">
+    <span class="arrow-icon">Hadiah Buat Kamu</span>
+  </button>
+
+  <script>
+    // Fungsi untuk navigasi ke halaman lain
+    function navigateToPage() {
+      window.location.href = "undangan.html"; // Ganti dengan URL halaman tujuan
+    }
+
+    // Generate random balloons
+    const balloonContainer = document.querySelector('.balloons');
+    const colors = ['#f06', '#f93', '#6f9', '#69f', '#9f6', '#fc0'];
+
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+      balloon.style.animation = `float ${Math.random() * 3 + 3}s ease-in infinite`;
+
+      balloonContainer.appendChild(balloon);
+
+      setTimeout(() => {
+        balloon.remove();
+      }, 4000);
+    }
+
+    setInterval(createBalloon, 500);
+
+    // Balloon floating animation
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes float {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(-120vh); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+    const userName = sessionStorage.getItem("userName");
+    document.getElementById("greeting").textContent = `Selamat Ulang Tahun ${userName}. Semoga menjadi orang yang lebih baik lagi kedepannya,
+     kemudian bisa mendapatkan apa yang kamu cita-citakan, bisa terus menjadi adila yang penyayang, dan semoga kita bisa selalu bersama dan berkembang menjadi
+     lebih baik dan sukses kedepannya. LOVE U`;
+  </script>
+</body>
+</html>
